@@ -6,7 +6,8 @@ const noteTitleModalForm = document.getElementById("note-title-modal");
 // You can use either forEach or Map
 getNotes().map(note => {
   const noteElement = createNoteElement(note.id, note.title, note.content);
-  notesContainer.insertBefore(noteElement, addNoteBtn);
+//  notesContainer.insertBefore(noteElement, addNoteBtn);
+  insertAfter(noteElement, notesContainer.lastElementChild);
 });
 
 addNoteBtn.addEventListener('click', addNote);
@@ -76,6 +77,11 @@ function createNoteElement(id, title, content) {
   return divElement;
 }
 
+
+function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
 // Add Note
 function addNote() {
   const notes = getNotes();
@@ -86,7 +92,8 @@ function addNote() {
   };
 
   const noteElement = createNoteElement(noteObject.id, noteObject.title, noteObject.content)
-  notesContainer.insertBefore(noteElement, addNoteBtn);
+  //  notesContainer.insertBefore(noteElement, addNoteBtn);
+  insertAfter(noteElement, notesContainer.lastElementChild);
 
   notes.push(noteObject);
   saveNotes(notes);
